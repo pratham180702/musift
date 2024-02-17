@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Pop",
+    "image": "/landing-page-images/pop.jpg",
+    "style": "Pop Style",
+    "description": "Catchy tunes and popular hits for your everyday playlist."
+  },
+  {
+    "name": "Lofi",
+    "image": "/landing-page-images/lofi.jpg",
+    "style": "Lofi Style",
+    "description": "Chill beats and relaxing melodies, perfect for studying or unwinding."
+  }
+]
