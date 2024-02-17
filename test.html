@@ -4,42 +4,140 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/Css/landing_style.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
     <style>
+      .section2-main-container {
+        display: flex;
+        justify-content: start;
+        overflow-x: scroll;
+        gap: 20px; /* Adjust the gap between cards */
+      }
+      .section2-main-container::-webkit-scrollbar {
+        display: none;
+      }
+
       .song-main-card {
         background-color: #222222;
-        width: 12vw;
+        min-width: 15vw;
+        max-width: 15vw;
         padding: 15px;
+        padding-bottom: 0;
         border-radius: 20px;
       }
+
+      .song-main-card > * {
+        background-color: inherit; /* Set child elements to inherit the background color */
+      }
+
       .img-div {
         display: flex;
         justify-content: center;
       }
       .song-image {
-        width: 65%;
-        height: auto;
         border-radius: 15px;
-        max-width: 100%;
-        max-width: 100%;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        min-height: 25vh;
+        max-width: 25vw;
+        max-height: 25vh;
+        margin-bottom: 10px;
       }
       .song-main-card h3 {
         color: white;
-        font-weight: 900;
+        font-weight: 650;
+        font-size: 1.5rem;
       }
+
+      .song-main-card p {
+        font-size: 1rem;
+      }
+
       .song-description {
         color: #717171;
       }
     </style>
   </head>
   <body>
-    <div class="song-main-card">
-      <div class="img-div">
-        <img class="song-image" src="images/weekend image.jpg" alt="" />
+    <div class="section2-bottom-box">
+      <div
+        id="carouselExampleControls section2-cardContainer"
+        class="carousel slide section2-main-container"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="..." class="d-block w-100" alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="..." />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <h3 class="song-name">lofi beats</h3>
-      <p class="song-description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, illum.
-      </p>
     </div>
+
+    <script>
+      // Fetch data from the JSON file
+      fetch("/Json/songs.json")
+        .then((response) => response.json())
+        .then((data) => {
+          // Now 'data' contains the parsed JSON content
+          console.log(data);
+
+          // The rest of your script for creating cards dynamically can go here
+          const cardContainer = document.getElementById(
+            "section2-cardContainer"
+          );
+
+          // Loop through the JSON data and create cards dynamically
+          data.forEach((data) => {
+            const card = document.createElement("div");
+            card.classList.add("song-main-card");
+
+            card.innerHTML = `
+                <div class="img-div">
+                  <img class="song-image" src="${data.image}" alt="" />
+                </div>
+                <h3 class="song-name">${data.name}</h3>
+                <p class="song-description">${data.description}</p>
+              `;
+
+            cardContainer.appendChild(card);
+          });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    </script>
   </body>
 </html>
